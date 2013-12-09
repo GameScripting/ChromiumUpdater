@@ -2,12 +2,14 @@ var request = require('request');
 var fs = require('fs');
 var child_process = require('child_process');
 
+var windowsVersion = "Win"; // Win_x64 for 64 bit
+
 var getLatestRevision = function(callback){
     
     request('http://chromium.woolyss.com/download/', function(err, res, body) {
         if(err) throw err;
 
-        var findLatestRevisionRegEx = new RegExp('chromium-browser-continuous/Win_x64/(\\d{1,})');
+        var findLatestRevisionRegEx = new RegExp('chromium-browser-continuous/'+windowsVersion+'/(\\d{1,})');
         var match = body.match(findLatestRevisionRegEx);
         if(match){
             var revision = match[1];
@@ -48,7 +50,7 @@ var installCheckRevision = function(revision, callback){
 };
 
 getLatestRevision(function(revision){
-    var installerUrl = 'https://commondatastorage.googleapis.com/chromium-browser-continuous/Win_x64/'+revision+'/mini_installer.exe';
+    var installerUrl = 'https://commondatastorage.googleapis.com/chromium-browser-continuous/'+windowsVersion+'/'+revision+'/mini_installer.exe';
     var filename = __dirname + '/' + revision + '_installer.exe';
     
     installCheckRevision(revision, function(needsUpdate){
