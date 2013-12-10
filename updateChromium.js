@@ -63,7 +63,8 @@ getLatestRevision(function(revision){
         console.log('Downloading installer ...');
         request(installerUrl).pipe(fs.createWriteStream(filename)).on('finish', function() {
             console.log('Installer saved!');
-                
+
+            console.log("Updating to latest version ...");
             var installProcess = child_process.spawn(filename);
             installProcess.on('close', function(){
                 console.log('Chromium ist now up-to-date!');
