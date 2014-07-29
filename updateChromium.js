@@ -9,7 +9,7 @@ var getLatestRevision = function(callback){
     request('http://chromium.woolyss.com/download/', function(err, res, body) {
         if(err) throw err;
 
-        var findLatestRevisionRegEx = new RegExp('chromium-browser-continuous/'+windowsVersion+'/(\\d{1,})');
+        var findLatestRevisionRegEx = new RegExp('chromium-browser-continuous/'+windowsVersion+'/([a-z0-9]{1,})');
         var match = body.match(findLatestRevisionRegEx);
         if(match){
             var revision = match[1];
